@@ -34,7 +34,7 @@ model_files = {
     "Decision Tree": "models/decision_tree_model.pkl",
     "KNN": "models/knn_model.pkl",
     "Naive Bayes": "models/naive_bayes_model.pkl",
-    "Random Forest": "models/naive_bayes_model.pkl",
+    "Random Forest": "models/random_forest_model.pkl",
     "XGBoost": "models/xgboost_model.pkl"
 }
 
@@ -56,6 +56,8 @@ if uploaded_file is not None:
     if model_choice == "XGBoost":
         y_pred=y_pred+1
     st.write("### Model Performance")
+    st.write(f"### Selected Model: {model_choice}")
+
     acc = accuracy_score(y, y_pred)
     st.write("Accuracy:", acc)
 
