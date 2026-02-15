@@ -8,10 +8,13 @@ Created on Sat Feb 14 19:42:07 2026
 import streamlit as st
 import pandas as pd
 import joblib
-from sklearn.metrics import accuracy_score, classification_report
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
+from sklearn.metrics import (
+    accuracy_score, precision_score, recall_score,
+    f1_score, matthews_corrcoef, roc_auc_score,
+    confusion_matrix, classification_report,ConfusionMatrixDisplay
+)
 
 st.set_page_config(page_title="Forest Cover Type Classifier", layout="wide")
 
@@ -63,8 +66,18 @@ if uploaded_file is not None:
     st.write(f"### Selected Model: {model_choice}")
 
     acc = accuracy_score(y, y_pred)
-    st.write("Accuracy:", acc)
+    prec = precision_score(y, y_pred, average="weighted")
+    rec = recall_score(y, y_pred, average="weighted")
+    f1 = f1_score(y, y_pred, average="weighted")
+    mcc = matthews_corrcoef(y, y_pred)
+    #auc = roc_auc_score(y, y_prob, multi_class="ovr")
 
+    st.write("Accuracy:", acc)
+    st.write("Precision:", prec)
+    st.write("Recall:", rec)
+    st.write("F1 score:", f1)
+    st.write("mcc:", mcc)
+    #st.write("Precision:", prec)
     st.text("Classification Report:")
     st.text(classification_report(y, y_pred))
     
