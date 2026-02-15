@@ -45,11 +45,14 @@ if uploaded_file is not None:
 
     X = df.drop("Cover_Type", axis=1)
     y = df["Cover_Type"]
+    
 
     model = joblib.load(model_files[model_choice])
+    scaler = joblib.load("scaler.pkl")
+    X_scaled = scaler.transform(X)
 
-    y_pred = model.predict(X)
-
+    #y_pred = model.predict(X)
+    y_pred = model.predict(X_scaled)
     st.write("### Model Performance")
     acc = accuracy_score(y, y_pred)
     st.write("Accuracy:", acc)
