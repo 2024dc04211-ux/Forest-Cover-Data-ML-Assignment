@@ -30,12 +30,12 @@ model_choice = st.sidebar.selectbox(
 
 # Load model (you must save these models earlier)
 model_files = {
-    "Logistic Regression": "models/logistic_regression_model.pkl",
-    "Decision Tree": "models/decision_tree_model.pkl",
-    "KNN": "models/knn_model.pkl",
-    "Naive Bayes": "models/naive_bayes_model.pkl",
-    "Random Forest": "models/random_forest_model.pkl",
-    "XGBoost": "models/xgboost_model.pkl"
+    "Logistic Regression": "model/logistic_regression_model.pkl",
+    "Decision Tree": "model/decision_tree_model.pkl",
+    "KNN": "model/knn_model.pkl",
+    "Naive Bayes": "model/naive_bayes_model.pkl",
+    "Random Forest": "model/random_forest_model.pkl",
+    "XGBoost": "model/xgboost_model.pkl"
 }
 
 if uploaded_file is not None:
@@ -48,7 +48,7 @@ if uploaded_file is not None:
     
 
     model = joblib.load(model_files[model_choice])
-    scaler = joblib.load("models/scaler.pkl")
+    scaler = joblib.load("model/scaler.pkl")
     X_scaled = scaler.transform(X)
 
     if model_choice in ["Logistic Regression", "KNN", "XGBoost"]:
