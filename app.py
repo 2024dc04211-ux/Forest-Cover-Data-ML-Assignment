@@ -9,6 +9,9 @@ import streamlit as st
 import pandas as pd
 import joblib
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+
 
 st.set_page_config(page_title="Forest Cover Type Classifier", layout="wide")
 
@@ -53,6 +56,14 @@ if uploaded_file is not None:
 
     st.text("Classification Report:")
     st.text(classification_report(y, y_pred))
+    
+    cm = confusion_matrix(y, y_pred)
+        
+    fig, ax = plt.subplots()
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+    disp.plot(ax=ax)
+    
+    st.pyplot(fig)
 
 else:
     st.info("Please upload a CSV file to begin.")
