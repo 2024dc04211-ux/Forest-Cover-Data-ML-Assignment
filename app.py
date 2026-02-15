@@ -27,12 +27,12 @@ model_choice = st.sidebar.selectbox(
 
 # Load model (you must save these models earlier)
 model_files = {
-    "Logistic Regression": "models/logreg.pkl",
-    "Decision Tree": "models/dt.pkl",
-    "KNN": "models/knn.pkl",
-    "Naive Bayes": "models/nb.pkl",
-    "Random Forest": "models/rf.pkl",
-    "XGBoost": "models/xgb.pkl"
+    "Logistic Regression": "models/logistic_regression_model.pkl",
+    "Decision Tree": "models/decision_tree_model.pkl",
+    "KNN": "models/knn_model.pkl",
+    "Naive Bayes": "models/naive_bayes_model.pkl",
+    "Random Forest": "models/naive_bayes_model.pkl",
+    "XGBoost": "models/xgboost_model.pkl"
 }
 
 if uploaded_file is not None:
