@@ -48,7 +48,7 @@ if uploaded_file is not None:
     
 
     model = joblib.load(model_files[model_choice])
-    scaler = joblib.load("scaler.pkl")
+    scaler = joblib.load("models/scaler.pkl")
     X_scaled = scaler.transform(X)
 
     #y_pred = model.predict(X)
