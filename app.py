@@ -53,6 +53,8 @@ if uploaded_file is not None:
 
     #y_pred = model.predict(X)
     y_pred = model.predict(X_scaled)
+    if model_choice == "XGBoost":
+        y_pred=y_pred+1
     st.write("### Model Performance")
     acc = accuracy_score(y, y_pred)
     st.write("Accuracy:", acc)
