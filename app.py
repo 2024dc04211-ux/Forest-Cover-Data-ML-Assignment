@@ -51,8 +51,12 @@ if uploaded_file is not None:
     scaler = joblib.load("models/scaler.pkl")
     X_scaled = scaler.transform(X)
 
-    #y_pred = model.predict(X)
-    y_pred = model.predict(X_scaled)
+    if model_choice in ["Logistic Regression", "KNN", "XGBoost"]:
+        y_pred = model.predict(X_scaled)
+    else:
+        y_pred = model.predict(X)
+
+    
     if model_choice == "XGBoost":
         y_pred=y_pred+1
     st.write("### Model Performance")
