@@ -8,6 +8,7 @@ Created on Sat Feb 14 19:42:07 2026
 import streamlit as st
 import pandas as pd
 import joblib
+import numpy as np
 
 import matplotlib.pyplot as plt
 from sklearn.metrics import (
@@ -15,6 +16,7 @@ from sklearn.metrics import (
     f1_score, matthews_corrcoef, roc_auc_score,
     confusion_matrix, classification_report,ConfusionMatrixDisplay
 )
+
 
 st.set_page_config(page_title="Forest Cover Type Classifier", layout="wide")
 
@@ -56,28 +58,38 @@ if uploaded_file is not None:
 
     if model_choice in ["Logistic Regression", "KNN", "XGBoost"]:
         y_pred = model.predict(X_scaled)
+        y_prob = model.predict_proba(X_scaled)
     else:
         y_pred = model.predict(X)
-
+        y_prob = model.predict_proba(X)
     
     if model_choice == "XGBoost":
         y_pred=y_pred+1
+        
     st.write("### Model Performance")
     st.write(f"### Selected Model: {model_choice}")
-
+    
     acc = accuracy_score(y, y_pred)
     prec = precision_score(y, y_pred, average="weighted")
     rec = recall_score(y, y_pred, average="weighted")
     f1 = f1_score(y, y_pred, average="weighted")
     mcc = matthews_corrcoef(y, y_pred)
-    #auc = roc_auc_score(y, y_prob, multi_class="ovr")
+    try:
+        auc = roc_auc_score(y, y_prob, multi_class="ovr")
+    except ValueError:
+        auc=None
+    '''
+    st.write("Unique y:", np.unique(y))
+    st.write("Model classes:", model.classes_)
+    st.write("y_prob shape:", y_prob.shape)
+    '''
 
     st.write("Accuracy:", acc)
     st.write("Precision:", prec)
     st.write("Recall:", rec)
     st.write("F1 score:", f1)
-    st.write("mcc:", mcc)
-    #st.write("Precision:", prec)
+    st.write("MCC:", mcc)
+    st.write("AUC:", auc)
     st.text("Classification Report:")
     st.text(classification_report(y, y_pred))
     
